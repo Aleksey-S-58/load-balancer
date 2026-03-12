@@ -1,5 +1,7 @@
 package load.balancer;
 
+import org.slf4j.LoggerFactory;
+
 public class Application {
 
     public static void main(String[] args) {
@@ -8,6 +10,6 @@ public class Application {
     }
 
     private static void printWelcomeMessage() {
-        System.out.println("Application started");
+        LoggerFactory.getLogger(Application.class).info("The load balancer started!");
     }
 }
