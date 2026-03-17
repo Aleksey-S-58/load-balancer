@@ -9,6 +9,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 import load.balancer.exceptions.ConnectorException;
+import load.balancer.request.RequestInfo;
 
 public class SocketConnectorFactory implements ConnectorFactory {
 
@@ -19,6 +20,12 @@ public class SocketConnectorFactory implements ConnectorFactory {
     public SocketConnectorFactory(SSLSocketFactory socketFactory) {
         super();
         this.socketFactory = socketFactory;
+    }
+
+    @Override
+    public SocketConnector createConnector(RequestInfo request) throws ConnectorException {
+        // TODO implement connector on the basis of request info with ssl/plain http socket according to the request schema.
+        return null;
     }
 
     @Override
