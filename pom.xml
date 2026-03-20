@@ -37,6 +37,16 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <includes>
+                    <include>LICENSE.md/LICENSE.md</include>
+                </includes>
+                <directory>./</directory>
+                <targetPath>META-INF</targetPath>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
