@@ -14,6 +14,8 @@ import load.balancer.request.RequestInfo;
 public class SocketConnectorFactory implements ConnectorFactory {
 
     protected final static int[] SSL_PROTPCOL_BYTES = {20, 21, 22, 23, 255};
+    public final static String HTTP_REQUEST_SCHEMA = "http";
+    public final static String HTTPS_REQUEST_SCHEMA = "https";
 
     protected final SSLSocketFactory socketFactory;
 
@@ -24,8 +26,17 @@ public class SocketConnectorFactory implements ConnectorFactory {
 
     @Override
     public SocketConnector createConnector(RequestInfo request) throws ConnectorException {
-        // TODO implement connector on the basis of request info with ssl/plain http socket according to the request schema.
-        return null;
+        try {
+            if (HTTP_REQUEST_SCHEMA.equalsIgnoreCase(request.schema())) {
+                return new SocketConnector(new Socket(request.host(), request.port()), false);
+            }
+            if (HTTPS_REQUEST_SCHEMA.equalsIgnoreCase(HTTPS_REQUEST_SCHEMA)) {
+                socketFactory.createSocket(request.host(), request.port());
+            }
+        } catch (IOException e) {
+            throw new ConnectorException(e);
+        }
+        throw new ConnectorException(String.format("Unsupported request schema %s", request.schema()));
     }
 
     @Override
