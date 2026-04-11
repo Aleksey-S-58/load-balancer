@@ -10,6 +10,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import load.balancer.exceptions.ConnectorException;
 import load.balancer.request.RequestInfo;
+import load.balancer.request.RequestSchema;
 
 public class SocketConnectorFactory implements ConnectorFactory {
 
@@ -27,11 +28,11 @@ public class SocketConnectorFactory implements ConnectorFactory {
     @Override
     public SocketConnector createConnector(RequestInfo request) throws ConnectorException {
         try {
-            if (HTTP_REQUEST_SCHEMA.equalsIgnoreCase(request.schema())) {
+            if (RequestSchema.HTTP == request.schema()) {
                 return new SocketConnector(new Socket(request.host(), request.port()), false);
             }
-            if (HTTPS_REQUEST_SCHEMA.equalsIgnoreCase(HTTPS_REQUEST_SCHEMA)) {
-                socketFactory.createSocket(request.host(), request.port());
+            if (RequestSchema.HTTPS == request.schema()) {
+                return new SocketConnector(socketFactory.createSocket(request.host(), request.port()), true);
             }
         } catch (IOException e) {
             throw new ConnectorException(e);
