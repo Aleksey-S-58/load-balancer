@@ -6,6 +6,9 @@
 *.log
 /logs/
 
+# Test reports
+/test-output/
+
 # BlueJ files
 *.ctxt
 
